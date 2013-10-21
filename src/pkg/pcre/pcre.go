@@ -48,7 +48,6 @@ package pcre
 
 /*
 #cgo pkg-config: libpcre
-#cgo CFLAGS: -Qunused-arguments
 #include <pcre.h>
 #include <string.h>
 */
@@ -90,13 +89,13 @@ const (
 
 // Flags for Match functions
 const (
-	NOTBOL            = C.PCRE_NOTBOL
-	NOTEOL            = C.PCRE_NOTEOL
-	NOTEMPTY          = C.PCRE_NOTEMPTY
-	NOTEMPTY_ATSTART  = C.PCRE_NOTEMPTY_ATSTART
-	NO_START_OPTIMIZE = C.PCRE_NO_START_OPTIMIZE
-	PARTIAL_HARD      = C.PCRE_PARTIAL_HARD
-	PARTIAL_SOFT      = C.PCRE_PARTIAL_SOFT
+	NOTBOL   = C.PCRE_NOTBOL
+	NOTEOL   = C.PCRE_NOTEOL
+	NOTEMPTY = C.PCRE_NOTEMPTY
+	//NOTEMPTY_ATSTART  = C.PCRE_NOTEMPTY_ATSTART
+	//NO_START_OPTIMIZE = C.PCRE_NO_START_OPTIMIZE
+	//PARTIAL_HARD      = C.PCRE_PARTIAL_HARD
+	//PARTIAL_SOFT      = C.PCRE_PARTIAL_SOFT
 )
 
 // A reference to a compiled regular expression.
@@ -403,4 +402,8 @@ type CompileError struct {
 
 func (e *CompileError) String() string {
 	return e.Pattern + " (" + strconv.Itoa(e.Offset) + "): " + e.Message
+}
+
+func (e *CompileError) Error() string {
+	return e.String()
 }
